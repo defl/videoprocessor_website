@@ -21,8 +21,7 @@
             <img src="/static/images/manual/capture_card_io.png" />
             <p>
                 Data comes in on an interface on a capture card. 
-                After capture the card will forward it to the application.
-
+                After capture, the card will forward it to the application.
                 This pipeline is reflected in the GUI in a vertical manner with the card and it's input at the top and from there on working
                 down towards the captured video in the application. The following is an example input:
             </p>
@@ -34,25 +33,25 @@
 
                     <div class="col">
                         <b>Capture device</b>
-                        <ul>
-                            <li>1) The selected capture card. If you have multiple capture cards there will be multiple entries here. It will default to the first available card.</li>
-                            <li>2) The selected input port on your capture card. Most cards have more than one port. This will default to a port called HDMI.</li>
-                            <li>3) The state of the capture, if this is "capturing" your card is reading from the HDMI wire. This does not mean that it's also getting valid input.</li>
-                            <li>4) Additional capture card data. DeckLink users will want to see PCIe speed 2 and width >=4 here.</li>
-                        </ul>
+                        <ol start="1">
+                            <li>The selected capture card. If you have multiple capture cards there will be multiple entries here. It will default to the first available card.</li>
+                            <li>The selected input port on your capture card. Most cards have more than one port. This will default to a port called HDMI.</li>
+                            <li>The state of the capture, if this is "capturing" your card is reading from the HDMI wire. This does not mean that it's also getting valid input.</li>
+                            <li>Additional capture card data. DeckLink users will want to see PCIe speed 2 and width >=4 here.</li>
+                        </ol>
 
                         <b>Input</b>
-                        <ul>
-                            <li>5) If there is an input signal on the HDMI cable the card can recognize, locked will be Yes and the other fields will be populated.</li>
-                            <li>6) This is the input resolution and frame rate</li>
-                            <li>7) The input encoding and bit depth</li>
-                            <li>8) Number of seen frames. V=Video, A=Audio. Miss are gaps in the stream were we would expect a frame but where none came.</li>
-                        </ul>
+                        <ol start="5">
+                            <li>If there is an input signal on the HDMI cable the card can recognize, locked will be Yes and the other fields will be populated.</li>
+                            <li>This is the input resolution and frame rate</li>
+                            <li>The input encoding and bit depth</li>
+                            <li>Number of seen frames. V=Video, A=Audio. Miss are gaps in the stream were we would expect a frame but where none came.</li>
+                        </ol>
 
                         <b>Captured video</b>
-                        <ul>
-                            <li>9) If VideoProcessor understands the format being output from your card valud will be Yes and the other fields will be populated.</li>
-                            <li>10) Your video card's output does not need to be the same as it's input. The cards' firmware can encode it any way it wants/needs. This field will reflect how the data is represented in the software.</li>
+                        <ol start="9">
+                            <li>If VideoProcessor understands the format being output from your card valid will be Yes and the other fields will be populated.</li>
+                            <li>Your video card's output does not need to be the same as it's input. The cards' firmware can encode it any way it wants/needs. This field will reflect how the data is represented in the software.</li>
                         </ul>
                     </div>
                 </div>
@@ -74,8 +73,8 @@
                 The timestamp however is taken at the point where the frame entered the capture card; you can say that the capture timestamp is always "behind" from the clock as it was taken in the hardware before the process saw it.
             </p>
             <p>
-                You can correct this forward to the point where it should be rendered with the offset. 9ms is about the time it takes for the hw to deliver the frame to the software. 90ms is about the time it takes to process everything.
-                Auto here will monitor the latency in the system and will adjust accordingly (with a restart of the renderer which might be annoying).
+                You can correct this forward to the point where it should be rendered with the Frame Offset option. 90ms is about the time it takes to process everything on a modern computer so that's the default.
+                Enabling Auto will monitor the latency in the system and will adjust accordingly if it's out of line (with a restart of the renderer which might be annoying).
             </p>
 
             <!-- HDR -->
@@ -93,24 +92,25 @@
                         <b>Color space</b>
                         <p>
                             This is a <a class="text-white" href="https://en.wikipedia.org/wiki/CIE_1931_color_space">CIE 1931</a> colorspace diagram; the colored area represents what is visible to the human eye. 
-                            Within it are drawn two triangle, which most of the time overlap so you only see one.
-                            Well known coordinates in the color space are translated to human-readable names. <a class="text-white" href="https://en.wikipedia.org/wiki/Illuminant_D65">D65</a> for example means the ~6500K white point.
+                            Within it are two triangles, which most of the time overlap so you only see one.
+                            Well known coordinates in the color space are translated to human-readable names.
+                            <a class="text-white" href="https://en.wikipedia.org/wiki/Illuminant_D65">D65</a> for example means the ~6500K white point.
                         </p>
-                        <ul>
-                            <li>1) The black triangle represents the video container. This should always be >= the white triangle.</li>
-                            <li>2) The white triangle represents the HDR metata, it is most often equal but can also be less than the video container.</li>
-                        </ul>
+                        <ol start="1">
+                            <li>The black triangle represents the video container. This should always be >= the white triangle.</li>
+                            <li>The white triangle represents the HDR metata, it is most often equal but can also be less than the video container.</li>
+                        </ol>
 
                         <b>HDR Luminance</b>
                         <p>
                             These values relay information about the brightness of the frame and how it was seen during the mastering process.
                             More details <a class="text-white" href="https://www.mysterybox.us/blog/2016/10/19/hdr-video-part-3-hdr-video-terms-explained">here</a> and <a class="text-white" href="https://www.lightspace.lightillusion.com/uhdtv.html">here</a>.
                         </p>
-                        <ul>
-                            <li>3) Maximum Content Light Level (MaxCLL) represents the pixel light level in nits in whole movie.</li>
-                            <li>4) Maximum Frame Average Light Level (MaxFALL) represents the maximum average light level of a frame in nits.</li>
-                            <li>5) Min and max light levels of the display user for mastering the movie.</li>
-                        </ul>
+                        <ol start="3">
+                            <li>Maximum Content Light Level (MaxCLL) represents the pixel light level in nits in whole movie.</li>
+                            <li>Maximum Frame Average Light Level (MaxFALL) represents the maximum average light level of a frame in nits.</li>
+                            <li>Min and max light levels of the display user for mastering the movie.</li>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -118,7 +118,8 @@
             <!-- Latency -->
             <p class="lead my-3" style="color: #FED700;">Latency.</p>
             <p>
-                It takes time for video frames to move through the system and into the final renderer. This time we call latency. There are 3 points in the system where this time is sampled.
+                It takes time for video frames to move through the system and into the final renderer, this is called latency.
+                There are 3 points in the system where this time is sampled.
             </p>
             <img src="/static/images/manual/latency.png" />
             <p>
@@ -131,16 +132,20 @@
                     </div>
 
                     <div class="col">
-                        <ul>
-                            <li>1) The time it took from the hardware capture to arrival in the videoprocessor process</li>
-                            <li>2) The time it took from the hardware capture to arrival at the first part of the renderer, the queue. Plus the frame offset (which is negative). This should be well below zero</li>
+                        <ol start="1">
+                            <li>The time it took from the hardware capture to arrival in the videoprocessor process. This is 8-9ms on a modern PC if all is well.</li>
                             <li>
-                                3) The time it took from the hardware capture to handoff to the rendere. 
-                                Plus the frame offset (which is negative). 
-                                This should always be just below zero for best results, as that means it's to be rendered slighty in the future. 
+                                The time it took from the hardware capture to arrival at the first part of the renderer, the queue. 
+                                Minus the frame offset. 
+                                This should be very close to (1) plus the offset, which if you leave the offset at 90, would be around -82 to -81ms.
+                            </li>
+                            <li>
+                                The time it took from the hardware capture to handoff to the rendere. 
+                                Minus the frame offset. 
+                                This should be below zero for less than a frame duration for best results, as that means it's to be rendered slighty in the future. 
                                 This little bit of time is all that the renderer needs to ensure that the frame is played at exactly the right point in time.
                             </li>
-                        </ul>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -149,23 +154,23 @@
             <p class="lead my-3" style="color: #FED700;">Renderer.</p>
             <p>
                 The renderer is the component which takes the video stream from the capture card and turns it into visible pixels.
-                VideoProcessor supports multiple renderers from different technologies, right now it only supports DirectShow renderers but the plan is to extend that to other frameworks.
+                VideoProcessor is designed to support multiple renderers from different technologies, but right now it only supports DirectShow renderers.
             </p>
             <img src="/static/images/manual/vp_render.png" /><br /><br />
 
             <b>Renderer selection and lifetime</b>
-            <ul>
-                <li>1) This is the renderer to use. This list is auto-populated from operating system on a name basis, it is possible that VideoProcessor will show non-functional renderers.</li>
-                <li>2) Restart forces a total restart of the renderer, removing it entirely and starting it up again. Generally this is not needed.</li>
-                <li>3) Reset stops, clears and starts the renderer. This can help in removing queues in DirectShow renderers. This is very fast.</li>
-                <li>4) Auto reset will reset automatically once in a while if the queue is too large. Given that this generally only is a startup problem there will be no more resets after the beginning.</li>
-                <li>5) The party button.</li>
-            </ul>
+            <ol start="1">
+                <li>This is the renderer to use. This list is auto-populated from the OS on a name basis, it is possible that VideoProcessor will show non-functional renderers.</li>
+                <li>Restart forces a total restart of the renderer, removing it entirely and starting it up again. Generally this is not needed.</li>
+                <li>Reset stops, clears and starts the renderer. This can help in removing queues in DirectShow renderers. This is very fast.</li>
+                <li>Auto reset will reset automatically once in a while if the queue is too large. Given that this generally only is a startup problem there will be no more resets after the beginning.</li>
+                <li>The party button.</li>
+            </ol>
 
             <b>Timestamp</b>
-            <ul>
+            <ol start="6">
                 <li>
-                    <p>6) Determines how frames are timestamped.</p>
+                    <p>Determines how frames are timestamped.</p>
                     <ul>
                         <li>
                             Clock-theo: Will just add the theoretical time to the start timestamp. 
@@ -181,7 +186,7 @@
                         <li>None: No timestamps, this will force the renderer to render immediately as this is an indicate it's too late.</li>
                     </ul>
                 </li>
-            </ul>
+            </ol>
 
             <b>HDR overrides</b>
             <p>
@@ -189,24 +194,24 @@
                 Or when you have a source which sends the right pixels but the wrong metadata. 
                 For these cases you can use the overrides here.
             </p>
-            <ul>
-                <li>7) Nominal range override.</li>
-                <li>8) Transfer function override.</li>
-                <li>9) Transfer matrix override.</li>
-                <li>10) Primaries override.</li>
-            </ul>
+            <ol start="7">
+                <li>Nominal range override.</li>
+                <li>Transfer function override.</li>
+                <li>Transfer matrix override.</li>
+                <li>Primaries override.</li>
+            </ol>
 
             <b>State</b>
-            <ul>
-                <li>11) The state of the renderer. Only when this is Running will there be a picture.</li>
-            </ul>
+            <ol start="11">
+                <li>The state of the renderer. Only when this is Running will there be a picture.</li>
+            </ol>
 
             <b>Queue</b>
-            <ul>
-                <li>12) If checked VideoProcessor will use a queue and a separate renderer thread to buffer frames between capture and renderer. If unchecked the capture will call the renderer directly, this will lead to major delays in DirectShow.</li>
-                <li>13) This is the current queue size and the maximum queue size. If the queue gets bigger than the maximum the oldest frame is dropped. You want your queue to always be around 0-2. Anything more means you should press reset.</li>
-                <li>14) Drop count for frames which were not shown.</li>
-            </ul>
+            <ol start="12">
+                <li>If checked VideoProcessor will use a queue and a separate renderer thread to buffer frames between capture and renderer. If unchecked the capture will call the renderer directly, this will lead to major delays in DirectShow.</li>
+                <li>This is the current queue size and the maximum queue size. If the queue gets bigger than the maximum the oldest frame is dropped. You want your queue to always be around 0-2. Anything more means you should press reset.</li>
+                <li>Drop count for frames which were not shown.</li>
+            </ol>
 
             <!-- Keyboard shortcuts -->
             <p class="lead my-3" style="color: #FED700;">Keyboard shortcuts.</p>
