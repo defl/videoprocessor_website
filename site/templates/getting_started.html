@@ -1,0 +1,151 @@
+{% extends "base.html" %}
+{% block title %}VideoProcessor - Getting started guide{% endblock %}
+{% block main %}
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded bg-dark">
+        <div class="col-md-12">
+            <h1 class="display-4 text-white ">Getting started</h1>
+            <p>
+                This guide will help you in getting started with VideoProcessor.
+            </p>
+
+            <i>
+                tl;dr: 64bit AVX or better CPU, 8Gb RAM, Recent Nvidia GPU, BlackMagic DeckLink Mini Recorder 4k, Win10, HDCP free source
+            </i>
+
+            <p class="lead my-3" style="color: #FED700;">System requirements.</p>
+            <p>
+                VideoProcessor itself takes very little CPU.
+                The capture card drivers often only take a decent amount of memory (gigs) but little CPU, the rest is the renderer.
+                Some renderers can be a massive resource drain; at maximum settings when working on a 4K high frame rate feed 
+                there simply is no available hardware which can sustain them (RTX3090 included). You'll need an AVX capable CPU 
+                (which is anything younger than a decade).
+            </p>
+            <p>
+                Luckily if you tone it down a bit, it works well with quite modest hardware.
+                There are quite a few guides on tuning your system and renderer of choice, so a bit of research will get you a long way.
+                Do note that you will need a proper GPU if you want to run a high-end renderer and want to do anything with 4k input, output or image enhancement. 
+                There have been reports of significant frame drops handling 4K on recent Intel GPUs, while 1080p was ok without image enhancements.
+                Generally Nvidia is strongly preferred. 
+                A recent AMD GPU should work just as well, though NVidia is often preferred.
+            </p>
+            <b>Minimal specs</b>
+            <ul>
+                <li>64-bit, AVX capable CPU (<10 y old): Sandy Brdige Intel or Bulldozer AMD</li>
+                <li>8gb RAM</li>
+                <li>NVidia GTX1660</li>
+                <li>Windows 10</li>
+                <li>Capture card</li>
+            </ul>
+
+            <p class="lead my-3" style="color: #FED700;">Capture card.</p>
+            <p>
+                VideoProcessor has a wide range of applications; you can do as little as just some color correction on low end inputs like NTSC all the way up to HDR tone mapping a 4k HDR source.
+                As such there is a very wide variety of cards it can potentially work with.
+                The following list provides cards which provide HDMI 2.0 or up, 4K or up, HDR or better and >=10bits - 
+                this covers the most common use case of processing a HDR stream and polishing + tone mapping it to your display.
+            </p>
+            
+            <b>Tested and confirmed working</b>
+            <p>
+                If you can spare it, the BlackMagic DeckLink Quad HDMI can do 4k60, which makes your life easier as many GUIs and menus are in 
+                this format. The Mini Recorder 4K is significantly cheaper but can cause some confusion to your systems as it is max 30fps at 4K, 
+                this isn't perfectly recognized by all systems which potentially will require fiddling to get it working. For >99.9% of the 
+                movies out there the best (value) choice is as good as the high-end choice.
+            </p>
+
+            <ul>
+                <li><a class="text-white" href="https://www.blackmagicdesign.com/nl/products/decklink/techspecs/W-DLK-33">BlackMagic DeckLink Mini Recorder 4k</a> (4k30) (€~200) <-- best (value) choice</li>
+                <li><a class="text-white" href="https://www.blackmagicdesign.com/products/decklink/techspecs/W-DLK-36">BlackMagic DeckLink Quad HDMI Recorder</a> (4k60) (€~500) <-- high-end choice</li>
+            </ul>
+
+            <img src="/static/images/decklink_wdlk33.png" /><br />
+
+            <b>Should work, but untested</b>
+            <ul>
+                <li><a class="text-white" href="https://www.blackmagicdesign.com/nl/products/decklink/techspecs/W-DLK-25">DeckLink 4K Extreme 12G</a> (4k60) (€~750)</li>
+            </ul>
+
+            <b>Won't work (yet)</b>
+            <p>
+                The following cards have capable hardware but are not supported; getting them work is most likely possible but might involve 
+                high procurement and/or engineering costs. The rules for getting them added are simple: it needs a published API 
+                (either vendor-provided or reverse engineered) and I need the hardware or you send a pull-request.
+            </p>
+            <ul>
+                <li><a class="text-white" href="https://www.elgato.com/en/game-capture-4k60-pro">Elgato 4K60 pro</a> (4k60, pass-through) (€~250) - No publicly available API/SDK</li>
+                <li><a class="text-white" href="https://www.avermedia.com/us/product-detail/GC573">AVerMedia Live Gamer 4K (GC573)</a> (4k60, pass-through) (€~200) - No publicly available API/SDK</li>
+                <li><a class="text-white" href="https://www.avermedia.com/professional/product/cl511hn/overview">AVerMedia CL511HN</a> (4k60, pass-through) (€~900) - There is an SDK available which looks usable</li>
+                <li><a class="text-white" href="https://www.magewell.com/products/pro-capture-hdmi-4k-plus">Magewell Pro Capture HDMI 4K Plus</a> (4k60) (€~1000) - There is an SDK available</li>
+                <li><a class="text-white" href="https://www.magewell.com/products/pro-capture-hdmi-4k-plus-lt">Magewell Pro Capture HDMI 4K Plus LT</a> (4k60, pass-through) (€~1100) - There is an SDK available</li>
+            </ul>
+
+            <p class="lead my-3" style="color: #FED700;">Sources.</p>
+            <p>
+                The capture cards above are capable of HDMI input. HDMI is a very common way to interface sources and screens. 
+                Because of piracy concerns, the link can be encrypted with HDCP so that the content cannot be accessed by devices which are not licensed.
+            </p>
+
+            <b>HDCP</b>
+            <p>
+                All high quality copyright protected video is protected with High-bandwidth Digital Content Protection (HDCP).
+                No retail capture card is allowed to forward unprotected video data to it's clients.
+                Therefore, if you connect a HDCP source to a capture card the video output will be disabled or blank.
+                VideoProcessor is just a client of your capture card and hence if your capture card does not output video because of HDCP, there is no video to process.
+                VideoProcessor cannot strip, circumvent or work around HDCP in any way, shape or form, it can only process what it is given.
+            </p>
+            <p>
+                Devices which can remove HDCP protection exist, but their legality depends on your jurisdiction and use.
+                Ensuring compliance with your local laws, and feeding your capture card data it can forward to VideoProcessor, is your responsibility.
+                If you have no image because you're trying to connect to a protected source, there is nothing anyone can do.
+            </p>
+
+            <b>HDCP free sources</b>
+            <p>
+                The following is a list of HDCP-free sources with 4k HDR outputs.
+            </p>
+            <ul>
+                <li>PS4Pro: HDCP can be turned off in the options, it will not play DVR/BR and apps which display protected material anymore but all games are visible</li>
+                <li>PC: Windows can enable HDCP upon request by applications to protect video content. Everything else is outputted without protection.</li>
+            </ul>
+
+            <p class="lead my-3" style="color: #FED700;">Audio.</p>
+            <p>
+                Audio is not supported yet, and if it's supported it will not be high-end formats such as Dolby Atmos.
+                Such formats are simply not supported by the working capture cards.
+            </p>
+            <p>
+                You can put your AV in-line or a HDMI splitter in front of the capture input. 
+                One leg then goes into the capture card for the video and the other leg then goes towards an AV unit or audio processor.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">Software installation.</p>
+            <p>
+                VideoProcessor is a very simple application with minimal requirements, the following describes the whole installation:
+            </p>
+            <ol>
+                <li>Download and install the <a class="text-white" href="https://aka.ms/vs/16/release/vc_redist.x64.exe">Microsoft Visual Studio 19 x64 runtime</a></li>
+                <li>Download and install "Desktop Video 12.0" or later from the <a class="text-white" href="https://www.blackmagicdesign.com/nl/support/family/capture-and-playback">Blackmagic capture and playback support page</a></li>
+                <li>Download the <a class="text-white" href="https://github.com/defl/videoprocessor/releases">latest VideoProcessor release</a>, there is no install, just run VideoProcessor.exe.</li>
+            </ol>
+            <p>
+                After this you can install additional DirectShow renderers to taste, it's the renderer that is responsible for all the fancy 3d LUT, HDR tone mapping, scaling, deinterlacing and much more etc.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">HDMI debugging.</p>
+            <p>
+                If you have followed all of the above but still have no picture, and you're sure the software side is fine it's time to start to debug your HDMI connection.
+                The first question is always, do you have a HDCP free source; tf the source is HDCP protected then there will simply be no image to process. 
+                The first thing to figure out is what is actually on the HDMI cable as not everything might be supported (for example 4K60 is not supported by the cheaper DeckLink Mini Recorder 4k). 
+                The following might be handy ways to debug this:
+            </p>
+            <ol>
+                <li>Use the OSD of your AV unit to see what mode is being output.</li>
+                <li>A HDFury <a class="text-white" href="https://hdfury.com/product/4k-vertex2-18gbps/">Vertex 2</a> or <a class="text-white" href="https://hdfury.com/product/vertex-4k60-444-600mhz/">Vertex</a> are perfect for debugging as they display exactly what's going on on their display.</li>
+            </ol>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+{% block title %}VideoProcessor - Commercial alternatives{% endblock %}
+{% block main %}
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded bg-dark">
+        <div class="col-md-12">
+            <h1 class="display-4 text-white ">Commercial alternatives</h1>
+            <p>
+                Sometimes the best move is not to DIY, especially if you're looking for a smooth experience that Just Works&trade;.
+                The <a class="text-white" href="https://en.wikipedia.org/wiki/Wife_acceptance_factor">WAF</a> is a real thing and there is nothing more annoying than fixing what was working before just when you want to watch something.
+                Commercial alternatives have some significant advantages over VideoProcessor:
+            </p>
+            <ul>
+                <li>Able to play any source, not just HDCP-free.</li>
+                <li>It just works.</li>
+                <li>Support.</li>
+                <li>Updates that are well tested and guaranteed to work.</li>
+                <li>Better (or perfect) frame clock sync leading to less jitter.</li>
+                <li>Easier to control and set up.</li>
+                <li>An expected lifetime well beyond this Open Source project which is only supported while the developers are interested.</li>
+            </ul>
+
+            <p>
+                With that out of the way, here are the most well known video processors on the market, some are stand-alone and some are integrated into higher-end displays and beamers:
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">The 4k HDR list.</p>
+            <ul>
+                <li>madVR labs makes a device called the <a class="text-white" href="https://madvrenvy.com/">Envy</a> which can do both HDR tonemapping and 3d luts</li>
+                <li>Lumagen makes a device called the <a class="text-white" href="http://www.lumagen.com/testindex.php?module=radiancepro_details">Radiance Pro</a> which can also do HDR tonemapping.</li>
+                <li>Higher end Sony and JVC projectors can do HDR tonemapping internally.</li>
+                <li>Higher end projectors and OLED TVs often can do 3DLUT internally.</li>
+            </ul>
+
+            <p class="lead my-3" style="color: #FED700;">The lower-end list.</p>
+            <ul>
+                <li>There are a lot of lower-end devices which can do 3dLUT, <a class="text-white" href="https://displaycalibrations.com/lut_boxes_comparisons.html">DisplayCalibrations has a good overview</a> of them.</li>
+            </ul>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

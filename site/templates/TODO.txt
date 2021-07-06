@@ -1,0 +1,3 @@
+Help page with links from software
+Tutorial on how to measure frame-delay with a meter, set correct delay in VideoProcessor, setup delay in external AV unit
+Tutorial on how to do a 3d LUT

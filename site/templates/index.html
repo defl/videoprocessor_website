@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+
+{% block title %}VideoProcessor{% endblock %}
+
+{% block header %}{% endblock %}
+
+{% block main %}
+<main>
+    <div class="container col-xxl-8 px-4 py-5">
+        <div class="row flex-lg-row align-items-top">
+            <div class="col-10 col-sm-8 col-lg-6">
+            <img src="/static/images/logo_3d_background_400.png" class="d-block mx-lg-auto img-fluid" alt="logo 3d" loading="lazy">
+            </div>
+            <div class="col-lg-6">
+            <p class="lead">
+                <i>VideoProcessor</i> turns a computer into a world-class 4k HDR capable live video processor.
+                It connects your video capture card to a renderer and takes care of all the details such conversion, timing and HDR metadata.<br />
+                <br />
+                This allows advanced renderers to do things like 3D LUT, HDR tone mapping, scaling, deinterlacing and much more which can significantly improve image quality on most displays and beamers.<br />
+            </p>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-start">
+                <a id='download-button' href="https://github.com/defl/videoprocessor/releases" class="btn btn-primary btn-lg px-4 me-md-2" role="button">Download</a>
+                <a href="/getting_started" class="btn btn-secondary btn-lg px-4 me-md-2" role="button">Getting started guide</a>
+            </div>
+            </div>
+        </div>
+    </div>     
+
+    <div class="px-4 my-5 text-center">
+        <h1 class="display-4 fw-bold">Show me!</h1>
+        <div class="col-lg-10 mx-auto">
+            <p class="lead mb-4">
+                The GUI is packed with information and options to give you full insight and control over what is going on. 
+                Don’t worry if you’re not into the nitty-gritty details, VideoProcessor will do reasonable things
+                by default so the only button most people use before grabbing the popcorn is <i>Full screen</i>.
+            </p>
+        </div>
+        <div class="overflow-hidden">
+            <div class="container px-5">
+                <a href="/static/images/screenshot.png">
+                    <img src="/static/images/screenshot.png" class="img-fluid border rounded-3" alt="Screenshot">
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="px-4 pt-5 my-5 text-center">
+        <h1 class="display-4 fw-bold">How does it work?</h1>
+        <div class="col-lg-10 mx-auto">
+            <p class="lead mb-4">
+                You will need a Windows computer with a capture card and a video card.
+                VideoProcessor will take the images from the capture card, adjust, delay and processes them as required 
+                and then push them through a renderer and out of the video card. 
+                You can find all the details in the <a class="text-white" href="/getting_started">getting started guide</a>.
+            </p>
+        </div>
+        <div class="overflow-hidden">
+            <div class="container px-5">
+                <img src="/static/images/vp_system_flow.png" class="img-fluid rounded-3" alt="Video processor system flow">
+            </div>
+        </div>
+    </div>
+
+    <div class="px-4 pt-5 my-5 text-center">
+        <h1 class="display-4 fw-bold">Let's get started!</h1>
+        <div class="col-lg-10 mx-auto">
+            <p class="lead mb-4">
+                VideoProcessor is not an off-the-shelf applicance like a DVD player, you'll need to buy and connect a capture card, install drivers and play a bit with Windows and renderers; there will be some tinkering involved.
+                If you're looking for something easier, better and able to play any source, please take a look at the <a class="text-white" href="/commercial_alternatives">commercial alternatives</a> as they might fit your needs better.<br />
+            </p>
+            <p class="lead mb-4">
+                Still there? Ready to DIY? Allright! Click the button to continue.
+            </p>
+            <a href="/getting_started" class="btn btn-primary btn-lg px-4 me-md-2" role="button">Getting started guide</a>
+        </div>
+        <div class="overflow-hidden">
+            <div class="container px-5">
+                
+            </div>
+        </div>
+    </div>
+
+</main>
+{% endblock %}
+
+{% block body_end %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+    <script language="javascript" type="text/javascript">  
+
+        $(document).ready(function () {
+             GetLatestReleaseInfo();  
+        });
+        
+        function GetLatestReleaseInfo() {
+           $.getJSON("https://api.github.com/repos/defl/videoprocessor/releases/latest").done(function (json) {
+                $("#download-button").attr("href", json.html_url);  
+                $("#download-button").text("Download " + json.tag_name);
+           });    
+        }
+    </script>
+{% endblock %}
