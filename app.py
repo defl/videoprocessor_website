@@ -11,9 +11,21 @@ app = Flask(
 def index():
     return render_template('index.html')
 
+@app.route("/faq")
+def faq():
+    return render_template('faq.html')
+
 @app.route("/getting_started")
 def getting_started():
     return render_template('getting_started.html')
+
+@app.route("/manual")
+def manual():
+    return render_template('manual.html')
+
+@app.route("/debugging")
+def debugging():
+    return render_template('debugging.html')
 
 @app.route("/commercial_alternatives")
 def commercial_alternatives():

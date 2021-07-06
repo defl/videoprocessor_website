@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block title %}VideoProcessor - Debugging{% endblock %}
+{% block main %}
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded bg-dark">
+        <div class="col-md-12">
+            <h1 class="display-4 text-white ">Debugging</h1>
+            <p>
+                This page offers help on on understanding what's going on if it does not work.
+                Probably the first place you should look is the <a class="text-white" href="/faq">FAQ</a>, you're likely not to be the first one with a specific problem.
+                If you get stuck a good place to get started is in the <a class="text-white" href="https://www.avsforum.com/threads/videoprocessor.3206050/">forum</a>.
+                If you want real support, you should consider a <a class="text-white" href="/commercial_alternatives">commercial alternative</a>.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">Understanding what's on the HDMI wire</p>
+            <p>
+                If the software runs but there is no picture, and you've made sure that it's not something in the <a class="text-white" href="/faq">FAQ</a>, it's time to start to debug your HDMI connection.
+                HDMI debugging will always come down to plugging something in place of, or inline with, your capture card so you can see what's on the wire.
+            </p>
+            <ol>
+                <li>Use the OSD of your AV unit to see what mode is being output.</li>
+                <li>A HDFury <a class="text-white" href="https://hdfury.com/product/4k-vertex2-18gbps/">Vertex 2</a> or <a class="text-white" href="https://hdfury.com/product/vertex-4k60-444-600mhz/">Vertex</a> are perfect for debugging as they display exactly what's going on on their display.</li>
+            </ol>                
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">Answer not here?</p>
+            <p>
+                <a href="/faq" class="btn btn-primary btn-lg px-4 me-md-2" role="button">FAQ</a>
+                <a href="https://www.avsforum.com/threads/videoprocessor.3206050/" class="btn btn-primary btn-lg px-4 me-md-2" role="button">Forum</a>
+            </p>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

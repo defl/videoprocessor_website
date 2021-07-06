@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% block title %}VideoProcessor - FAQ{% endblock %}
+{% block main %}
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded bg-dark">
+        <div class="col-md-12">
+            <h1 class="display-4 text-white ">FAQ</h1>
+
+            <p class="lead my-3" style="color: #FED700;">Capabilities.</p>
+
+            <b>Can this capture, process and display >=10bit?</b>
+            <p>
+                Yes. NVidia 12bit output, D3D11 10bit rendering window and 12bit input have been observed working.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">I've got everything installed.</p>
+
+            <b>My renderer shows a black screen</b>
+            <ul>
+                <li>Are you capturing something which is outside of what the card can pass along? For example 4k>30 with Blackmagic Recorder 4K mini will lead to this.</li>
+                <li>Did you set the correct output display modes in your renderer? Some renderers do refresh rate switching only correctly if you configure it.</li>
+                <li>A HDCP protected stream will also have no output</li>
+            </ul>
+
+            <b>I have frame drops, jitter, choppy image or similar performance problems</b>
+            <ul>
+                <li>Ensure your capture card is not sharing it's PCIe bandwidth with something else. Specifically your graphics card.</li>
+                <li>Ensure that your card is getting it's full PCIe bandwidth. The BlackMagic cards will show their bandwidth in the Capture Device -> Other properties which has to be link >=2 and width >=4.</li>
+                <li>Ensure you didn't set your renderer to be too resource intensive. Anything close-to the 1/framerate render time is probably a bad idea. At 24fps you should stay in the low 30ms. At 50fps you should stay in the low 10ms</li>
+                <li>Do not run other high (memory) bandwidth applications at the same time. 4k30 12 bit is pushing over 13gbps and that data needs to be in RAM and processed by your CPU several times, which can load up your memory bus quite a bit.</li>
+                <li>Full screen is generally smooter than windowed.</li>
+                <li>Use the queue. Don't let it fill up. You can press the reset button to clear it or leave it in auto.</li>
+                <li>If your capture latency (in the gui) is high (anything over 20ms) then issues will appear. Ensure you have no drops/misses. Ideally your DS renderer latency is very slightly negative (= the frame you just gave your renderer needs to be rendered in the very near future, rather than it being late if this number is positive), set it by changing the timing clock frame offset or just using the auto mode there.</li>
+                <li>For advanced renderers: You are using an Nvidia card right? Intel GPUs will not cut it and lead to all sorts of drops.</li>
+            </ul>
+        </div>
+
+        <p class="lead my-3" style="color: #FED700;">Answer not here?</p>
+        <p>
+            <a href="/debugging" class="btn btn-primary btn-lg px-4 me-md-2" role="button">Debugging</a>
+            <a href="https://www.avsforum.com/threads/videoprocessor.3206050/" class="btn btn-primary btn-lg px-4 me-md-2" role="button">Forum</a>
+        </p>
+
+    </div>
+</main>
+
+{% endblock %}
