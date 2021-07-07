@@ -27,6 +27,6 @@ def manual():
 def debugging():
     return render_template('debugging.html')
 
-@app.route("/commercial_alternatives")
-def commercial_alternatives():
-    return render_template('commercial_alternatives.html')
+@app.route("/commercial_video_processors")
+def commercial_video_processors():
+    return render_template('commercial_video_processors.html')
