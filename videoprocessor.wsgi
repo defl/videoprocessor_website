@@ -3,4 +3,4 @@ import os
 
 sys.path.append(os.path.dirname(os.path.realpath(__file__)))
 
-from app import app as application
+from videoprocessor import app as application
