@@ -2,7 +2,7 @@ from flask import Flask, render_template
 from flask_sitemap import Sitemap
 
 app = Flask(
-    "VideoProcessor",
+    __name__,
     static_url_path='/static', 
     static_folder='site/static',
     template_folder='site/templates')

@@ -167,22 +167,29 @@
                 <li>The party button.</li>
             </ol>
 
-            <b>Timestamp</b>
+            <b>DS-StartStop</b>
             <ol start="6">
                 <li>
-                    <p>Determines how frames are timestamped.</p>
+                    <p>
+                        Determines how frames are timestamped. DirectShow needs a start and a stop time and this menu gives you full flexibility on how that's used.
+
+                    </p>
                     <ul>
                         <li>
-                            Clock-theo: Will just add the theoretical time to the start timestamp. 
-                            That does not perfectly align with the timestamps (resolution difference and real-world clock wobble) and hence there will be a little bit of non-frame time.
-                            This is the recommended mode.
+                            Clock-smart: Combines clock-theo and clock-clock. Will take clock-clock if there is a queue, else will use clock-theo.
+                        </li>
+                        <li>
+                            Clock-theo: Will just add the theoretical time to the start timestamp which comes from the clock. 
+                            This does not need to perfectly align with the timestamps (resolution difference and real-world clock wobble) and hence there will be a little bit of non-frame time.
                         </li>
                         <li>
                             Clock-clock: Will force a minimial queue of 2 and it'll take the start timestamp of the next frame as the stop timestamp of the current. 
                             This is the most pure way to do it as there is no non-frame time in the timestream and all frames line up perfectly.
                             In practice it leads to visual hickups.
                         </li>
-                        <li>Theoretical: Just generates timestamps at a rate of the refresh rate</li>
+                        <li>Theo-theo: Just generates timestamps at a rate of the refresh rate</li>
+                        <li>Clock-None: Will take the clock timestamp for start, does not set a stop-time</li>
+                        <li>Theo-None: Just generates timestamps at a rate of the refresh rate, does not set a stop-time</li>
                         <li>None: No timestamps, this will force the renderer to render immediately as this is an indicate it's too late.</li>
                     </ul>
                 </li>
@@ -222,7 +229,19 @@
                 <li>ALT+F4: Exit process</li>
                 <li>ALT+Enter: Toggle full screen</li>
                 <li>ESC: Exit full screen</li>
+                <li>r: Reset the renderer.</li>
                 <li>Enter: Context dependent if you're in an input box it'll do what is needed. Default is to restart the renderer.</li>
+            </ul>
+
+
+            <!-- Command line arguments -->
+            <p class="lead my-3" style="color: #FED700;">Command line arguments.</p>
+            <p>
+                The following command line arguments are supported:
+            </p>
+            <ul>
+                <li>/fullscreen: Go immediately to fullscreen after starting</li>
+                <li>/renderer [name]: Name of the renderer to start, for example "DirectShow - Video Renderer" (case-insensitive)</li>
             </ul>
 
         </div>
