@@ -240,8 +240,10 @@
                 The following command line arguments are supported:
             </p>
             <ul>
-                <li>/fullscreen: Go immediately to fullscreen after starting</li>
+                <li>/fullscreen: Go immediately to fullscreen after starting.</li>
                 <li>/renderer [name]: Name of the renderer to start, for example "DirectShow - Video Renderer" (case-insensitive)</li>
+				<li>/frame_offset [value]: The frame offset in ms to use as a number, using "auto" will enable auto tuning.</li>
+				<li>Windows redirection works, adding "2>&1 >log.txt" will lead to a logfile, though VP logs extremely litte in release mode.</li>
             </ul>
 
         </div>

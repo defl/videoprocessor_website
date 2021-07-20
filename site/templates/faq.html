@@ -33,7 +33,15 @@
                 <li>Use the queue. Don't let it fill up. You can press the reset button to clear it or leave it in auto.</li>
                 <li>If your capture latency (in the gui) is high (anything over 20ms) then issues will appear. Ensure you have no drops/misses. Ideally your DS renderer latency is very slightly negative (= the frame you just gave your renderer needs to be rendered in the very near future, rather than it being late if this number is positive), set it by changing the timing clock frame offset or just using the auto mode there.</li>
                 <li>For advanced renderers: You are using an Nvidia card right? Intel GPUs will not cut it and lead to all sorts of drops.</li>
+				<li>Users have reported getting judder after switching between file-based playback and VideoProcessor; a cold boot was required to fix it.</li>
             </ul>
+			
+            <b>What are the edge cases of the BlackMagic DeckLink cards</b>
+            <ul>
+                <li>They cannot handle YUV444 12bit.</li>
+                <li>When processing any YUV (420, 422, 444) they downcovert it to YUV222, this lossy when the source is YUV444.</li>
+            </ul>
+			
         </div>
 
         <p class="lead my-3" style="color: #FED700;">Answer not here?</p>
