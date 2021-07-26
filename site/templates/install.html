@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block title %}VideoProcessor - Full install example{% endblock %}
+{% block main %}
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded bg-dark">
+        <div class="col-md-12">
+            <h1 class="display-4 text-white ">Full install example</h1>
+            <p>
+                VideoProcess does not live in a vacuum, it is part of a larger install which has multiple sources (players) and one or more sinks (displays).
+                Most users of VideoProcessor will be on the higher end of the scale and hence this guide is written with a mid-tier system in mind.
+                The following uses components that are current in 2021 and combines them in several ways to show different advantages and disadvantages of different setups.
+            </p>
+
+            <!-- AV centric -->
+            <br />
+            <p class="lead my-3" style="color: #FED700;">AV centric setup</p>
+            <p>
+                The most classical setup for a AV install is to center it around an audio-video processor all-in-one device.
+                These often are a video switcher, video processor, audio processor, tuner, and amplifier in one.
+                This has the benefit that you can control most features with a single remote. 
+            </p>
+            <p>
+                In the example we're aiming to get a high quality cinema going and hence have opted for an Emotiva XMC-2 which is a Dolby Atmos capable decoder,
+                it does not have built in amplifiers and hence we've drawn them remotely as the green boxes below the XMC2. Practically there is little difference
+                with a more all-in-one AV unit.
+            </p>
+
+            <img src="/static/images/install/install_xmc2_leading.png" class="img-fluid rounded-3" />
+            <br />
+            <br />
+
+            <b>Layout</b>
+            <p>
+                The different sources are on the left and they ultimately feed into a Optoma GT1090HDR beamer which has only a single 4k/HDR capable input and a secondary HD capable input, situated on the right.
+                Different colors of arrows indicate different capabilities of connections.
+            </p>
+
+            <b>HDFury Vertex2</b>
+            <p>
+                As the signals travel from the AV's two outputs, both are pushed through a HDFury Vertex2 which is capable of telling the sources that they're connected to a Dolby Vision device (which the Optoma beamer is not).
+                This tricks the capable devices (in this case the Sony X700 blue ray player, the Apple TV4K and the Xbox) into outputting a normal HDR signal with the Dolby Vision layer encoded into it and which is suitable
+                to the display's output. This generally leads to a nicer image but it is not a hard requirement.
+            </p>
+            <p>
+                Another major advantage of the Vertex2 is it's web-gui control and the integrated OLED display which shows exactly what's going on with the signals. It allows for on-the-fly reconfiguration and easy debugging.
+                If you're going as far as building a VideoProcessor the Vertex2 comes as a <i>highly recommended</i> piece of kit to debug and massage your signals.
+            </p>
+
+            <b>HTPC</b>
+            <p>
+                Given the example beamer is a native 1920x1080 there is no need to to have a 4k signal coming from the HTPC;
+                anything you want to do on it (game, play files or use VideoProcessor) will be better if you output the native format rather than 4k.
+                Even HDR content is better dynamically tonemapped on the HTPC to SDR, rather than sending it natively to the beamer.
+                The only exception would that that if you want to play HDR capable PC games, at that point you can simply replace the second cable with a switch (see the other example below) so you can select
+                to which output the beamer's 4k input is connected.
+            </p>
+
+            <b>Sources</b>
+            <p>
+                For the hardware device sources such as the Blue ray player it's a different story, you want to be able to send a HDR signal to the beamer so it can use the fullest extent of its capabilities.
+            </p>
+
+            <b>VideoProcessor</b>
+            <p>
+                VideoProcessor is only capable of handling non-HDCP signals and hence in this design only the Xbox and the PS4 can output usable data to it. As the VideoProcessor takes time you will need to offset
+                your lip-sync. For reference, with version 1.0.0 the required added delay is around 180ms.<br />
+                An example of how the flows exactly is given in the section below.
+            </p>
+
+
+            <!-- HDFury Vertex2 centric -->
+            <br />
+            <p class="lead my-3" style="color: #FED700;">HDFury Vertex2 centric setup</p>
+            <p>
+                Another way to set up the install is to use the HDFury Vertex2 as the center piece of the install as shown below. 
+                It's not a recommended setup for most people, nor is it very friendly without automation (such as a Logitech Harmony) as you need to control more devices.
+                The goal of this example is to give you another, more uncommon, view on how to solve the AV puzzle; it's main benefit is to allow separation of audio/video.
+            </p>
+
+            <img src="/static/images/install/install_vertex2_leading.png" class="img-fluid rounded-3" />
+            <br />
+            <br />
+
+            <b>Pro & con</b>
+            <p>
+                When compared to an AV centric install the advantages of this install are:
+            </p>
+            <ul>
+                <li>Audio is a fully separated path and install, offering a way to only enable parts of the system for audio listening or when you only need video.</li>
+                <li>If your AV unit has trouble with processing high end video and/or bad handshakes with the beamer, this circumvents these problems allowing you to use your AV device for only audio purposes.</li>
+                <li>Fewer components in the path.</li>
+            </ul>
+
+            <p>
+                The downsides versus the AV centric install are:
+            </p>
+            <ul>
+                <li>Switching requires up to 3 different devices (HDFury Vertex2, Emotiva XMC-2, 3x1 selector) which is one more than with the AV install.</li>
+                <li>Audio is a fully separated path and install</li>
+                <li>Only 4 HDMI inputs on the HDFury Vertex2</li>
+                <li>You cannot see the video state on the AV or the AV's OSD in the shown video</li>
+                <li>The AV cannot automatically compensate for it's latency.</li>
+            </ul>
+
+            <b>Example flows</b>
+            <p>
+                Below are 4 possible flows that you can create with this setup, obviously all 4 are possible as well with the AV centric setup.
+            </p>
+
+            <div class="row mb-6">
+                <div class="col-md-6 themed-grid-col">
+                    <i>Blue-ray</i>
+                    <img src="/static/images/install/install_vertex2_leading_br.png" class="img-fluid" />
+                    This way you can play Blue-ray movies with Dolby Vision in 4k HDR on the beamer with a minimal
+                    amount of processing in between.
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <i>HTPC</i>
+                    <img src="/static/images/install/install_vertex2_leading_htpc.png" class="img-fluid"  />
+                    This example shows how data flows if you're gaming or watching file based media from the HTPC.
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row mb-6">
+                <div class="col-md-6 themed-grid-col">
+                    <i>VideoProcessor</i>
+                    <img src="/static/images/install/install_vertex2_leading_ps4pro.png" class="img-fluid" />
+                    In this case you're sending non-HDCP encrypted data through VideoProcessor which then does the image processing and sends it to the beamer.
+                    The audio will go directly from the source, split in the HDFury Vertex2.
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <i>Low-latency gaming</i>
+                    <img src="/static/images/install/install_vertex2_leading_xbox.png" class="img-fluid"  />
+                    VideoProcessing and devices all take time, up to 100's of milliseconds; which is not acceptable for low-latency uses like FPS gaming.
+                    Hence in this setup the data goes directly to the beamer (disable LLDV for even lower latency).
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+{% endblock %}

@@ -20,6 +20,10 @@ def index():
 def faq():
     return render_template('faq.html')
 
+@app.route("/install")
+def install():
+    return render_template('install.html')
+
 @app.route("/getting_started")
 def getting_started():
     return render_template('getting_started.html')
