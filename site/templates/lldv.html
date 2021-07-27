@@ -11,12 +11,12 @@
             </p>
             <p>
                 Beamers and lower end displays are generally not capable of decoding a DV signal.
-                Getting a DV capable certification requires the displays to have a very wide color gamut, high luminosity and well calibrated values out of the box.
+                Getting a DV capable certification requires the display to have a very wide color gamut, high luminosity and well calibrated values out of the box.
                 For reference, there is no projector, even at the high-end, which can reach the required standards.
                 These technical requirements together with the royalties means that DV capable devices are generally more expensive.
             </p>
 
-            <p class="lead my-3" style="color: #FED700;">Faking it</h1>
+            <p class="lead my-3" style="color: #FED700;">Faking it</p>
             <p>
                 Internally DV has different modes -ways of transferring the information from the source to the screen- and in one of them there is actually no DV data sent,
                 instead the player pre-processes the DV data into whatever the display can display.
@@ -44,7 +44,7 @@
                 Most of these effects can be mitigated by doing HDR tonemapping and color/brightness corrections with a 3DLUT; this is exactly what VideoProcessor can help with.
             </p>
 
-            <p class="lead my-3" style="color: #FED700;">VideoProcessor</h1>
+            <p class="lead my-3" style="color: #FED700;">VideoProcessor</p>
             <p>
                 Because VideoProcessor is in full control of the signal and allows modifications of it's metadata it can tell renderers what they're receiving.
                 With that the renderer can recover the image perfectly, tonemap it down even further to your display's capabilities, and if you have configured a 3DLUT the renderer will translate the DV signal to your display so that it renders as good as possible to achieve on your hardware.
