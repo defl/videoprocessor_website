@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% block title %}VideoProcessor - Dolby Vision{% endblock %}
+{% block main %}
+
+<main class="container">
+    <div class="p-4 p-md-5 mb-4 rounded bg-dark">
+        <div class="col-md-12">
+            <h1 class="display-4 text-white ">Low-Latency Dolby Vision</h1>
+            <p>
+                <a href="https://www.dolby.com/technologies/dolby-vision/" class="text-white">Dolby Vision</a> (DV) is the name of a proprietary dynamic HDR metadata format from Dolby.
+            </p>
+            <p>
+                Beamers and lower end displays are generally not capable of decoding a DV signal.
+                Getting a DV capable certification requires the displays to have a very wide color gamut, high luminosity and well calibrated values out of the box.
+                For reference, there is no projector, even at the high-end, which can reach the required standards.
+                These technical requirements together with the royalties means that DV capable devices are generally more expensive.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">Faking it</h1>
+            <p>
+                Internally DV has different modes -ways of transferring the information from the source to the screen- and in one of them there is actually no DV data sent,
+                instead the player pre-processes the DV data into whatever the display can display.
+                This mode is called Low-Latency Dolby Vision or LLDV in short, but it's also known as block 5 or player-led dolby vision.
+            </p>
+            <p>
+                So if a device were to claim it's capable of receiving LLDV, and your DV player supports the conversion to LLDV, it could actually end up with something that looks like a normal HDR10 signal.
+                This is where <a href="https://www.hdfury.com" class="text-white">HDFury</a> have made a name for themselves, most of their HDMI devices are capable of doing this trick and you can find more background reading about it on <a href="https://www.hdfury.com/enjoy-dynamic-dv-content-from-lldv-source-on-any-hdr10-display/" class="text-white">their page about it</a>.
+            </p>
+            <p>
+                There are generally a few  problems with this approach for home cinema enthusiasts:
+            </p>
+            <ul>
+                <li>Your display/projector must be told what the signal luminance values actually are.</li>
+                <li>Your display/projector must have the right gamma curve, often PQ. Many beamers/displays require specific settings or setup.</li>
+                <li>While the LLDV generation process does take into account per scene metadata and renders it to the best of it's abilities, it's not quite full dynamic tone mapping.</li>
+                <li>Certified Dolby Vision equipment is generally well calibrated so that you see what was intended.</li>
+            </ul>
+            <p>
+                Higher end devices are able to overcome these problems and display improved visuals over normal HDR10, though this is harder for lower end equipment.
+            </p>
+            <p>
+                When tried you'll find that colors tend to be off, too bright or over/under saturated.
+                These are effects of your equipment not understanding the metadata required and it simply not being able to reach the required color/brightness.
+                Most of these effects can be mitigated by doing HDR tonemapping and color/brightness corrections with a 3DLUT; this is exactly what VideoProcessor can help with.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">VideoProcessor</h1>
+            <p>
+                Because VideoProcessor is in full control of the signal and allows modifications of it's metadata it can tell renderers what they're receiving.
+                With that the renderer can recover the image perfectly, tonemap it down even further to your display's capabilities, and if you have configured a 3DLUT the renderer will translate the DV signal to your display so that it renders as good as possible to achieve on your hardware.
+                This means that most simple beamers and screens can now display DV to the best of their abilities.
+                That doesn't magically make it perfect, but it's certainly a big step up from the baseline.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">The installation</p>
+            <p>
+                In it's simplest form an LLDV setup looks like the following:
+            </p>
+            <img src="/static/images/lldv/lldv_overview.png" class="img-fluid rounded-3" />
+            <p>
+                On the left is an LLDV Dolby capable generator which can generate non-HDCP encoded content (remember, VideoProcessor can only process what your capture card can capture and capture cards cannot capture HDCP protected content).
+                This source is connected to a HDFury device, in this case a higher end Vertex2 but this capability is supported on many of their products like the cheaper Arcana series.
+                The HTPC running VP is behind the Vertex and it's outputting towards the display.
+            </p>
+            <p>You can find more examples of setups which will support LLDV in the <a href="/install" class="text-white">install section</a></p>
+
+            <p class="lead my-3" style="color: #FED700;">Design</p>
+            <p>
+                We're going to ask the source to generate an LLDV image in the BT.2020 colorspace and with a max nits of 1000 lumen.
+                These values have to be the same between VideoProcessor and the HDFury Vertex, you can play with these to see if that yields better results, but remember to change them on both sides.
+            </p>
+            <p>
+                The key values you can change are indicated in green boxes in the configurations below.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">HDFury Vertex2 configuration</p>
+            <p>
+                The following images show how to configure your HDFury Vertex2.
+                There is one image per tab in the top bar.
+                Other HDFury devices will have similar controls so it should not be very hard to switch between them.
+            </p>
+            <div class="row mb-6">
+                <div class="col-md-6 themed-grid-col">
+                    <b>Info</b>
+                    <img src="/static/images/lldv/vertex2_info.png" class="img-fluid" />
+                    <p>
+                        As you can see the source is LLDV (red box) and the output is HDR (blue box).
+                        The actual signal does not change, but the HDFury negotiates the link differently with both sides.
+                    </p>
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <b>EDID</b>
+                    <img src="/static/images/lldv/vertex2_edid.png" class="img-fluid" />
+                    <p>
+                        The EDID is the information block devices exchange with each other when connecting an HDMI cable.
+                        In this case it's connected RX0 to TX0 and we want to inject a custom Dolby Vision (DV) block,
+                        so set the options to the red boxes.
+                    </p>
+                </div>
+            </div>
+            <br />
+            <br />
+            <div class="row mb-6">
+                <div class="col-md-6 themed-grid-col">
+                    <b>HDR/AVI</b>
+                    <img src="/static/images/lldv/vertex2_hdravi.png" class="img-fluid" />
+                    <p>
+                        We want the HDFury to change the LLDV to a custom HDR block, so select the option in red.
+                        Setting the blue options does unfortunately not work and VideoProcessor
+                        will override them anyway.
+                    </p>
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <b>DV</b>
+                    <img src="/static/images/lldv/vertex2_dv.png" class="img-fluid"  />
+                    <p>
+                        If there is DV input the data in the blue box will show it to be active.<br />
+                        Set the values in the red box as shown (you only need to change the green boxes, the others
+                        will auto adjust.)
+                    </p>
+                </div>
+            </div>
+
+            <p class="lead my-3" style="color: #FED700;">VideoProcessor configuration</p>
+            <p>
+                You'll need VP 0.4.2 or higher to do this. In the HDR color space and HDR luminance select the
+                "Follow input (LLDV)" option, this will make VideoProcessor look for the HDFury signature that it
+                changed the options and will activate the conversion.
+                Once the LLDV signal stops VP will automatically start using normal HDR and SDR data again as well.
+            </p>
+            <img src="/static/images/lldv/vp_settings.png" class="img-fluid" />
+            <p>
+                If you change values in the green box, which you can if you select "user", remember to also change
+                them in the HDFury config.
+            </p>
+
+            <p class="lead my-3" style="color: #FED700;">That's it!</p>
+            <p>
+                Nothing more to do, start the show.
+            </p>
+        </div>
+    </div>
+</main>
+
+{% endblock %}
