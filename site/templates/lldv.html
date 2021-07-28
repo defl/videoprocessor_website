@@ -41,8 +41,7 @@
                 <a href="https://www.youtube.com/watch?v=e_a77zJTrO4" class="text-white">good video on it</a> where he shows the differences.
             </p>
             <p>
-                So if a device were to claim it's capable of receiving LLDV to LLDV capable player, it could actually
-                end up with something that looks like a normal HDR signal.
+                So if a device were to claim it's capable of receiving LLDV, to a LLDV capable player, it could actually end up with something that looks like a normal HDR signal.
                 This is where <a href="https://www.hdfury.com" class="text-white">HDFury</a> have made a name for
                 themselves, most of their HDMI devices are capable of doing this trick and you can find more background
                 reading on <a href="https://www.hdfury.com/enjoy-dynamic-dv-content-from-lldv-source-on-any-hdr10-display/" class="text-white">their page on the subject</a>.
@@ -54,7 +53,7 @@
                 <li>Your display/projector must be HDR.</li>
                 <li>Your display/projector must be told what the signal luminance values actually are and support them.</li>
                 <li>Your display/projector must support the right EOTF. Many beamers/displays require specific settings or setup or simply don't support setting curves.</li>
-                <li>There is an issue with the HDFury implementation of sending out the HDR block which leads many devices to not be able to see it.</li>
+                <li>There is an issue with the HDFury implementation of sending out the HDR block which leads many devices to not be able to see it and get the colors and luminance wrong.</li>
                 <li>While the LLDV generation process does take into account per scene metadata and renders it to the best of it's abilities, it's not quite full dynamic tone mapping.</li>
             </ul>
             <p>
@@ -115,9 +114,9 @@
                         <img src="/static/images/lldv/vertex2_edid.png" class="img-fluid" />
                     </a>
                     <p>
-                        The EDID is the information block devices exchange with each other when connecting an HDMI cable.
-                        In this case it's connected RX0 to TX0 and we want to inject a custom Dolby Vision (DV) block,
-                        so set the options to the red boxes.
+                        This controls what the Vertex claims the sink is capable of.
+                        In this case we copy it from the real sink (TX0) but we want to inject a custom Dolby
+                        Vision (DV) block, so set the options shown in the red boxes.
                     </p>
                 </div>
                 <div class="col-md-6 themed-grid-col">
@@ -126,10 +125,12 @@
                         <img src="/static/images/lldv/vertex2_hdravi.png" class="img-fluid" />
                     </a>
                     <p>
-                        We want the HDFury to change the LLDV to a custom HDR block, so select the option in red. <br />
+                        We want the HDFury to change the LLDV to a custom HDR block, so select the option in red.
+                    </p>
+                    <p>
                         Setting the blue options does unfortunately not work (for the DeckLink cards and most PJ's,
                         though HDFury claim it does work for televisions) until this is fixed VideoProcessor
-                        will override them.
+                        will have to override them.
                     </p>
                 </div>
             </div>
