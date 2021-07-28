@@ -1,47 +1,55 @@
 {% extends "base.html" %}
-{% block title %}VideoProcessor - Dolby Vision{% endblock %}
+{% block title %}VideoProcessor - (Low-Latency) Dolby Vision{% endblock %}
 {% block main %}
 
 <main class="container">
     <div class="p-4 p-md-5 mb-4 rounded bg-dark">
         <div class="col-md-12">
-            <h1 class="display-4 text-white ">Low-Latency Dolby Vision</h1>
+            <h1 class="display-4 text-white ">(Low-Latency) Dolby Vision</h1>
             <p>
-                <a href="https://www.dolby.com/technologies/dolby-vision/" class="text-white">Dolby Vision</a> (DV) is the name of a proprietary dynamic HDR metadata format from Dolby.
+                <a href="https://www.dolby.com/technologies/dolby-vision/" class="text-white">Dolby Vision</a> (DV) is the name of a proprietary dynamic HDR metadata format from Dolby, which simply looks better than normal HDR.
             </p>
             <p>
-                Beamers and lower end displays are generally not capable of decoding a DV signal.
-                Getting a DV capable certification requires the display to have a very wide color gamut, high luminosity and well calibrated values out of the box.
-                For reference, there is no projector, even at the high-end, which can reach the required standards.
+                If you're interested in how it works and why it's better check out below video from
+                Vincent from <a href="https://www.youtube.com/channel/UCcCYOO2uYPnG-21WDOWdwew" class="text-white">HDTVTest</a>
+                where he pixel-peeps his way through a lot of material showing the differences and nuances it brings.
+            </p>
+            <div class="text-center">
+                <iframe class="embed-responsive-item" width="560" height="315" src="https://www.youtube-nocookie.com/embed/voePq29-U6M" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </div>
+
+            <p class="lead my-3" style="color: #FED700;">Devices</p>
+            <p>
+                Beamers and lower-end displays are generally not capable of decoding a DV signal.
+                Getting a DV capable certification requires the display to have a very wide color gamut, high luminosity, very high contrast and well calibrated values out of the box.
+                For reference, there is no projector, even at the very high-end, which can reach the required standards to certify.
                 These technical requirements together with the royalties means that DV capable devices are generally more expensive.
             </p>
 
             <p class="lead my-3" style="color: #FED700;">Faking it</p>
             <p>
                 Internally DV has different modes -ways of transferring the information from the source to the screen- and in one of them there is actually no DV data sent,
-                instead the player pre-processes the DV data into whatever the display can display.
+                instead the player pre-processes the DV data into HDR which a less HDR display can display.
                 This mode is called Low-Latency Dolby Vision or LLDV in short, but it's also known as block 5 or player-led dolby vision.
+                It's not as good as other modes (known as tv-led), but it's significantly better than static HDR.
+                Again Vincent from <a href="https://www.youtube.com/channel/UCcCYOO2uYPnG-21WDOWdwew" class="text-white">HDTVTest</a> has a <a href="https://www.youtube.com/watch?v=e_a77zJTrO4" class="text-white">good video on it</a> where he shows the differences.
             </p>
             <p>
                 So if a device were to claim it's capable of receiving LLDV, and your DV player supports the conversion to LLDV, it could actually end up with something that looks like a normal HDR10 signal.
                 This is where <a href="https://www.hdfury.com" class="text-white">HDFury</a> have made a name for themselves, most of their HDMI devices are capable of doing this trick and you can find more background reading about it on <a href="https://www.hdfury.com/enjoy-dynamic-dv-content-from-lldv-source-on-any-hdr10-display/" class="text-white">their page about it</a>.
             </p>
             <p>
-                There are generally a few  problems with this approach for home cinema enthusiasts:
+                While this works very well on high end devices, there are generally a few problems with this approach for home cinema enthusiasts with less than stellar equipment:
             </p>
             <ul>
-                <li>Your display/projector must be told what the signal luminance values actually are.</li>
-                <li>Your display/projector must have the right gamma curve, often PQ. Many beamers/displays require specific settings or setup.</li>
+                <li>Your display/projector must be HDR.</li>
+                <li>Your display/projector must be told what the signal luminance values actually are and support them.</li>
+                <li>Your display/projector must support the right EOTF. Many beamers/displays require specific settings or setup or simply don't support setting curves.</li>
                 <li>While the LLDV generation process does take into account per scene metadata and renders it to the best of it's abilities, it's not quite full dynamic tone mapping.</li>
-                <li>Certified Dolby Vision equipment is generally well calibrated so that you see what was intended.</li>
             </ul>
             <p>
-                Higher end devices are able to overcome these problems and display improved visuals over normal HDR10, though this is harder for lower end equipment.
-            </p>
-            <p>
-                When tried you'll find that colors tend to be off, too bright or over/under saturated.
-                These are effects of your equipment not understanding the metadata required and it simply not being able to reach the required color/brightness.
-                Most of these effects can be mitigated by doing HDR tonemapping and color/brightness corrections with a 3DLUT; this is exactly what VideoProcessor can help with.
+                Combined these will translate into colors tend to be off, too bright or over/under saturated images, contrast issues and the like.
+                Luckily most of these effects can be mitigated by doing HDR tonemapping and color/brightness corrections with a 3DLUT; this is exactly what VideoProcessor can do.
             </p>
 
             <p class="lead my-3" style="color: #FED700;">VideoProcessor</p>
@@ -56,7 +64,9 @@
             <p>
                 In it's simplest form an LLDV setup looks like the following:
             </p>
-            <img src="/static/images/lldv/lldv_overview.png" class="img-fluid rounded-3" />
+            <div class="text-center">
+                <img src="/static/images/lldv/lldv_overview.png" class="img-fluid" />
+            </div>
             <p>
                 On the left is an LLDV Dolby capable generator which can generate non-HDCP encoded content (remember, VideoProcessor can only process what your capture card can capture and capture cards cannot capture HDCP protected content).
                 This source is connected to a HDFury device, in this case a higher end Vertex2 but this capability is supported on many of their products like the cheaper Arcana series.
@@ -75,21 +85,11 @@
 
             <p class="lead my-3" style="color: #FED700;">HDFury Vertex2 configuration</p>
             <p>
-                The following images show how to configure your HDFury Vertex2.
-                There is one image per tab in the top bar.
-                Other HDFury devices will have similar controls so it should not be very hard to switch between them.
+                The HDFury interface is quite complicated and it is unclear how things work. In case you're wondering
+                as well check <a href="/static/images/lldv/vertex2_overview.png" class="text-white">this image</a> which will show you
+                which screen affects what information.
             </p>
             <div class="row mb-6">
-                <div class="col-md-6 themed-grid-col">
-                    <b>Info</b>
-                    <a href="/static/images/lldv/vertex2_info.png">
-                        <img src="/static/images/lldv/vertex2_info.png" class="img-fluid" />
-                    </a>
-                    <p>
-                        As you can see the source is LLDV (red box) and the output is HDR (blue box).
-                        The actual signal does not change, but the HDFury negotiates the link differently with both sides.
-                    </p>
-                </div>
                 <div class="col-md-6 themed-grid-col">
                     <b>EDID</b>
                     <a href="/static/images/lldv/vertex2_edid.png">
@@ -101,10 +101,6 @@
                         so set the options to the red boxes.
                     </p>
                 </div>
-            </div>
-            <br />
-            <br />
-            <div class="row mb-6">
                 <div class="col-md-6 themed-grid-col">
                     <b>HDR/AVI</b>
                     <a href="/static/images/lldv/vertex2_hdravi.png">
@@ -116,6 +112,10 @@
                         will override them anyway.
                     </p>
                 </div>
+            </div>
+            <br />
+            <br />
+            <div class="row mb-6">
                 <div class="col-md-6 themed-grid-col">
                     <b>DV</b>
                     <a href="/static/images/lldv/vertex2_dv.png">
@@ -125,6 +125,15 @@
                         If there is DV input the data in the blue box will show it to be active.<br />
                         Set the values in the red box as shown (you only need to change the green boxes, the others
                         will auto adjust.)
+                    </p>
+                </div>
+                <div class="col-md-6 themed-grid-col">
+                    <b>Info</b>
+                    <a href="/static/images/lldv/vertex2_info.png">
+                        <img src="/static/images/lldv/vertex2_info.png" class="img-fluid" />
+                    </a>
+                    <p>
+                        If all went well you should now see the source is LLDV (red box) and the output is HDR (blue box).
                     </p>
                 </div>
             </div>
